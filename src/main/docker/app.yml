@@ -1,0 +1,19 @@
+version: '2'
+services:
+    shaxpscore-app:
+        image: shaxpscore
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://shaxpscore-postgresql:5432/shaxpsCore
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=shaxpscore-elasticsearch:9300
+        ports:
+            - 8080:8080
+    shaxpscore-postgresql:
+        extends:
+            file: postgresql.yml
+            service: shaxpscore-postgresql
+    shaxpscore-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: shaxpscore-elasticsearch
